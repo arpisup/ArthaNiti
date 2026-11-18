@@ -1,0 +1,59 @@
+{
+  "sources": [
+    {
+      "id": "sdg_india_index",
+      "name": "SDG India Index export",
+      "automation": "manual",
+      "category": "dataset",
+      "preferred_formats": [
+        ".csv",
+        ".xlsx"
+      ],
+      "notes": "Use an official or licensed curated export. Keep the original file untouched."
+    },
+    {
+      "id": "budget_policy_tables",
+      "name": "Budget and policy tables",
+      "automation": "manual",
+      "category": "dataset",
+      "preferred_formats": [
+        ".csv",
+        ".xlsx",
+        ".pdf"
+      ],
+      "notes": "Use source releases from Union Budget, RBI, MOSPI, or equivalent official publications."
+    },
+    {
+      "id": "statista_reference",
+      "name": "Statista reference extract",
+      "automation": "manual",
+      "category": "dataset",
+      "preferred_formats": [
+        ".csv",
+        ".xlsx",
+        ".json"
+      ],
+      "notes": "Only ingest if licensing allows local use. No automated scraper is included in Phase 1."
+    },
+    {
+      "id": "indian_economy_reference",
+      "name": "Indian economy reference text",
+      "automation": "manual",
+      "category": "document",
+      "preferred_formats": [
+        ".pdf"
+      ],
+      "notes": "Place the source PDF locally, then run the document extraction workflow."
+    },
+    {
+      "id": "structural_economic_analysis",
+      "name": "World Bank structural economic analysis catalog",
+      "automation": "manual",
+      "category": "dataset",
+      "preferred_formats": [
+        ".csv"
+      ],
+      "notes": "Use as a curated metadata catalog for structural economy sources; normalize the relevant rows before wiring them into the scenario model."
+    }
+  ]
+}

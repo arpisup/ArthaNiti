@@ -1,0 +1,12 @@
+{
+  "copied_file": "/home/srao/Downloads/Eco_Sim/data/raw/documents/indian-economy-reference/20260409T195321Z/source/ramesh_singh.pdf",
+  "document_id": "indian-economy-reference",
+  "extraction_backend": "pdftotext",
+  "full_text_path": "/home/srao/Downloads/Eco_Sim/data/raw/documents/indian-economy-reference/20260409T195321Z/full_text.txt",
+  "input_file_name": "ramesh_singh.pdf",
+  "page_count": 801,
+  "pages_path": "/home/srao/Downloads/Eco_Sim/data/raw/documents/indian-economy-reference/20260409T195321Z/pages.json",
+  "run_id": "20260409T195321Z",
+  "sha256": "6755fe5acf53a2676dea6975993b9c68290396cf36983204edb1f92c0d1e39e3",
+  "size_bytes": 24854083
+}

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ArthaNiti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  </head>
+  <body class="split-page">
+    
+    <!-- Top Navigation -->
+    <header class="top-nav">
+      <div class="brand">
+        <h1>ArthaNiti</h1>
+        <span class="badge positive" style="margin-left: 1rem;">Beta</span>
+      </div>
+      <div class="user-info-pill" id="user-info-panel">
+        <!-- Populated by JS -->
+      </div>
+    </header>
+
+    <div class="split-layout">
+      
+      <!-- LEFT: Chat Interface -->
+      <section class="chat-panel">
+        <div class="chat-messages" id="chat-messages">
+          <div class="message assistant">
+            <div class="message-icon">AI</div>
+            <div class="message-content">
+              Welcome to **ArthaNiti**. I am powered by a deterministic Multi-Agent System (MAS). 
+              <br><br>
+              Ask me about any policy scenario (e.g. *"What happens if corporate taxes increase?*"), and I will orchestrate the agents to provide a detailed, academic assessment. You can watch the agents' live output on the right panel.
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-area">
+          <form id="chat-form" class="chat-form">
+            <textarea id="chat-input" placeholder="Ask about economic policies..." rows="1" required></textarea>
+            <button type="submit" id="send-btn" class="send-btn" title="Send Query">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- RIGHT: Multi-Agent Dashboard -->
+      <section class="dashboard-panel" id="dashboard-panel" hidden>
+        
+        <div class="dashboard-header">
+          <div>
+            <h2>Scenario Monitor</h2>
+            <p id="dashboard-status">Ready for a scenario.</p>
+          </div>
+          <div class="dashboard-header-meta">
+            <span id="dashboard-horizon" class="dashboard-horizon">--</span>
+            <button type="button" id="dashboard-refresh" class="icon-btn" title="Refresh assessment view" aria-label="Refresh assessment view">↻</button>
+          </div>
+        </div>
+
+        <div class="agent-tracing" id="agent-tracing">
+          <div class="trace-step" id="trace-eco">1. Economic</div>
+          <div class="trace-step" id="trace-cit">2. Citizen</div>
+          <div class="trace-step" id="trace-pol">3. Policy</div>
+          <div class="trace-step" id="trace-rsk">4. Risk</div>
+          <div class="trace-step" id="trace-evi">5. Evidence</div>
+        </div>
+
+        <div class="dashboard-content" id="dashboard-content" hidden>
+          <section class="assessment-hero" aria-live="polite">
+            <div class="assessment-kicker"><span class="pulse-dot"></span> Live policy intelligence</div>
+            <h3 id="dash-headline">Your assessment will appear here.</h3>
+            <p id="dash-confidence" class="assessment-confidence">Waiting for the scenario engine.</p>
+            <div class="assessment-meta-row">
+              <span id="dash-status-badge" class="status-badge">Pending</span>
+              <span id="dash-agent-health" class="assessment-meta">5 analytical lenses</span>
+            </div>
+            <div class="assessment-actions">
+              <button type="button" id="copy-brief-btn" class="panel-action" title="Copy assessment brief">Copy brief</button>
+              <button type="button" id="download-report-btn" class="panel-action panel-action-accent" title="Download assessment data">Download report</button>
+            </div>
+          </section>
+
+          <nav class="dashboard-tabs" aria-label="Assessment views">
+            <button type="button" class="dashboard-tab active" data-dashboard-tab="overview">Overview</button>
+            <button type="button" class="dashboard-tab" data-dashboard-tab="agents">Agent room</button>
+            <button type="button" class="dashboard-tab" data-dashboard-tab="evidence">Evidence</button>
+            <button type="button" class="dashboard-tab" data-dashboard-tab="compare">Compare</button>
+          </nav>
+
+          <div class="dashboard-view active" data-dashboard-view="overview">
+            <div class="metric-grid" id="dash-metrics"></div>
+
+            <div class="insight-card">
+              <div class="chart-heading"><h3>What changed</h3><span class="chart-note">highest signal</span></div>
+              <div id="dash-highlights" class="highlight-list"></div>
+            </div>
+
+            <div class="chart-container chart-wide">
+              <div class="chart-heading"><h3>Macro Change From Baseline</h3><span class="chart-note">delta</span></div>
+              <canvas id="macroChart" height="220"></canvas>
+            </div>
+
+            <div class="chart-container chart-wide">
+              <div class="chart-heading"><h3>Baseline vs Scenario</h3><span class="chart-note">all metrics</span></div>
+              <canvas id="levelsChart" height="260"></canvas>
+            </div>
+
+            <div class="chart-container chart-wide" id="exposure-container">
+              <div class="chart-heading"><h3>Personal Exposure</h3><span class="chart-note">0–100</span></div>
+              <canvas id="exposureChart" height="220"></canvas>
+            </div>
+
+            <div class="cards-grid">
+              <div class="info-card">
+                <h3>Citizen Impact</h3>
+                <p class="text-sm text-muted">Dominant Persona:</p>
+                <strong id="dash-persona" class="text-lg">-</strong>
+                <div id="dash-persona-metrics" style="margin-top: 0.5rem; font-size: 0.85rem;"></div>
+              </div>
+              <div class="info-card">
+                <h3>Matched Schemes</h3>
+                <div id="dash-schemes" class="scheme-list-mini"></div>
+              </div>
+              <div class="info-card full-col">
+                <h3>Structural Risks</h3>
+                <ul id="dash-risks" class="styled-list-mini"></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-view" data-dashboard-view="agents">
+            <div class="view-intro"><span class="section-mark">01</span><div><h3>Agent room</h3><p>See how each analytical lens contributed to this assessment.</p></div></div>
+            <div id="agent-detail-list" class="agent-detail-list"></div>
+          </div>
+
+          <div class="dashboard-view" data-dashboard-view="evidence">
+            <div class="view-intro"><span class="section-mark">02</span><div><h3>Evidence desk</h3><p>Trace the scenario back to the local knowledge base.</p></div></div>
+            <div class="query-callout"><span>Search query</span><strong id="dash-evidence-query">No evidence query yet.</strong></div>
+            <div id="dash-citations" class="citation-list"></div>
+            <div class="insight-card tradeoff-card"><div class="chart-heading"><h3>Policy trade-offs</h3><span class="chart-note">watch closely</span></div><ul id="dash-tradeoffs" class="styled-list-mini"></ul></div>
+          </div>
+
+          <div class="dashboard-view" data-dashboard-view="compare">
+            <div class="view-intro"><span class="section-mark">03</span><div><h3>Compare futures</h3><p>Adjust the levers and see which scenario wins on growth and stability.</p></div></div>
+            <div class="comparison-panel">
+              <div class="chart-heading"><h3>Build two scenarios</h3><button type="button" id="compare-btn" class="compact-btn">Compare</button></div>
+              <div class="comparison-fields">
+                <label>Scenario A <input id="compare-label-a" value="Current scenario"></label>
+                <label>Scenario B <input id="compare-label-b" value="Alternative policy"></label>
+                <label>Horizon A <select id="compare-horizon-a"></select></label>
+                <label>Horizon B <select id="compare-horizon-b"></select></label>
+              </div>
+              <div class="scenario-controls">
+                <div class="scenario-control-card"><h4>Scenario A controls</h4><div id="scenario-a-controls"></div></div>
+                <div class="scenario-control-card scenario-control-card-alt"><h4>Scenario B controls</h4><div id="scenario-b-controls"></div></div>
+              </div>
+              <p id="compare-status" class="text-sm text-muted">Tune the controls, then compare.</p>
+              <canvas id="comparisonChart" height="220" hidden></canvas>
+            </div>
+          </div>
+
+          <div class="scenario-strip" id="scenario-inputs">
+            <span class="text-muted text-sm">Scenario inputs will appear here.</span>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+    <script type="module">
+      import { initChat } from '/app.js';
+      initChat();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+{
+  "default_horizon_years": 5,
+  "supported_horizons": [1, 5, 10],
+  "policy_levers": [
+    {
+      "id": "income_tax_rate",
+      "label": "Income Tax Rate",
+      "unit": "%",
+      "min": 5,
+      "max": 35,
+      "step": 1,
+      "baseline": 20,
+      "description": "Higher values raise direct-tax burden on salaried and high-income households."
+    },
+    {
+      "id": "gst_rate",
+      "label": "GST Rate",
+      "unit": "%",
+      "min": 5,
+      "max": 28,
+      "step": 1,
+      "baseline": 18,
+      "description": "Higher values lift indirect-tax burden and can transmit into consumer prices."
+    },
+    {
+      "id": "policy_rate",
+      "label": "Policy Rate",
+      "unit": "%",
+      "min": 3,
+      "max": 10,
+      "step": 0.25,
+      "baseline": 6.5,
+      "description": "Higher values tighten credit and curb inflation, but usually cool growth."
+    },
+    {
+      "id": "capital_spending_index",
+      "label": "Capital Spending",
+      "unit": "index",
+      "min": 70,
+      "max": 140,
+      "step": 1,
+      "baseline": 100,
+      "description": "Public capex primarily affects medium-term growth, jobs, and infrastructure capacity."
+    },
+    {
+      "id": "welfare_spending_index",
+      "label": "Welfare Spending",
+      "unit": "index",
+      "min": 70,
+      "max": 140,
+      "step": 1,
+      "baseline": 100,
+      "description": "Supports lower-income households in the short run, but can pressure the fiscal position."
+    },
+    {
+      "id": "subsidy_index",
+      "label": "Subsidy Support",
+      "unit": "index",
+      "min": 60,
+      "max": 150,
+      "step": 1,
+      "baseline": 100,
+      "description": "Broad subsidy support reduces near-term household stress but can worsen fiscal strain."
+    },
+    {
+      "id": "credit_support_index",
+      "label": "Credit Support",
+      "unit": "index",
+      "min": 70,
+      "max": 150,
+      "step": 1,
+      "baseline": 100,
+      "description": "Directed credit support mainly benefits MSMEs, investment, and near-term demand."
+    },
+    {
+      "id": "export_push_index",
+      "label": "Export Push",
+      "unit": "index",
+      "min": 70,
+      "max": 150,
+      "step": 1,
+      "baseline": 100,
+      "description": "Trade and export promotion tend to improve medium-to-long-horizon growth resilience."
+    },
+    {
+      "id": "infrastructure_push_index",
+      "label": "Infrastructure Push",
+      "unit": "index",
+      "min": 70,
+      "max": 150,
+      "step": 1,
+      "baseline": 100,
+      "description": "Infrastructure affects jobs now and productivity later; its strongest payoff is delayed."
+    },
+    {
+      "id": "debt_discipline_index",
+      "label": "Debt Discipline",
+      "unit": "index",
+      "min": 70,
+      "max": 150,
+      "step": 1,
+      "baseline": 100,
+      "description": "Stronger fiscal discipline improves long-run resilience but can reduce near-term stimulus."
+    }
+  ],
+  "macro_metrics": [
+    {
+      "id": "gdp_growth_pct",
+      "label": "GDP Growth",
+      "unit": "%",
+      "precision": 2,
+      "description": "Modeled annual growth rate anchored to the latest World Bank series."
+    },
+    {
+      "id": "inflation_pct",
+      "label": "Inflation",
+      "unit": "%",
+      "precision": 2,
+      "description": "Modeled consumer-price inflation."
+    },
+    {
+      "id": "unemployment_pct",
+      "label": "Unemployment",
+      "unit": "%",
+      "precision": 2,
+      "description": "Modeled unemployment rate."
+    },
+    {
+      "id": "fiscal_stress_index",
+      "label": "Fiscal Stress",
+      "unit": "index",
+      "precision": 1,
+      "description": "Composite index from debt burden, tax capacity, and policy stance."
+    },
+    {
+      "id": "investment_sentiment_index",
+      "label": "Investment Sentiment",
+      "unit": "index",
+      "precision": 1,
+      "description": "Composite index for investment appetite."
+    },
+    {
+      "id": "exchange_stability_index",
+      "label": "Exchange Stability",
+      "unit": "index",
+      "precision": 1,
+      "description": "Composite index for external and currency stability."
+    },
+    {
+      "id": "trade_momentum_index",
+      "label": "Trade Momentum",
+      "unit": "index",
+      "precision": 1,
+      "description": "Composite index for trade and export activity."
+    },
+    {
+      "id": "household_pressure_index",
+      "label": "Household Pressure",
+      "unit": "index",
+      "precision": 1,
+      "description": "Composite index where higher is worse for household affordability."
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "artifacts": {
+    "normalized_csv": "/home/srao/Downloads/Eco_Sim/data/raw/world_bank/20260408T215237Z/records.csv",
+    "run_dir": "/home/srao/Downloads/Eco_Sim/data/raw/world_bank/20260408T215237Z"
+  },
+  "country": "IND",
+  "end_year": 2024,
+  "indicator_count": 13,
+  "indicators": [
+    {
+      "code": "NY.GDP.MKTP.KD.ZG",
+      "name": "GDP growth (annual %)",
+      "records": 55
+    },
+    {
+      "code": "NY.GDP.MKTP.CD",
+      "name": "GDP (current US$)",
+      "records": 55
+    },
+    {
+      "code": "FP.CPI.TOTL.ZG",
+      "name": "Inflation, consumer prices (annual %)",
+      "records": 55
+    },
+    {
+      "code": "SL.UEM.TOTL.ZS",
+      "name": "Unemployment, total (% of total labor force)",
+      "records": 55
+    },
+    {
+      "code": "FR.INR.RINR",
+      "name": "Real interest rate (%)",
+      "records": 55
+    },
+    {
+      "code": "PA.NUS.FCRF",
+      "name": "Official exchange rate (LCU per US$)",
+      "records": 55
+    },
+    {
+      "code": "GC.DOD.TOTL.GD.ZS",
+      "name": "Central government debt, total (% of GDP)",
+      "records": 55
+    },
+    {
+      "code": "GC.TAX.TOTL.GD.ZS",
+      "name": "Tax revenue (% of GDP)",
+      "records": 55
+    },
+    {
+      "code": "BX.KLT.DINV.WD.GD.ZS",
+      "name": "Foreign direct investment, net inflows (% of GDP)",
+      "records": 55
+    },
+    {
+      "code": "NE.TRD.GNFS.ZS",
+      "name": "Trade (% of GDP)",
+      "records": 55
+    },
+    {
+      "code": "NV.AGR.TOTL.ZS",
+      "name": "Agriculture, forestry, and fishing, value added (% of GDP)",
+      "records": 55
+    },
+    {
+      "code": "NV.IND.TOTL.ZS",
+      "name": "Industry, value added (% of GDP)",
+      "records": 55
+    },
+    {
+      "code": "NV.SRV.TOTL.ZS",
+      "name": "Services, value added (% of GDP)",
+      "records": 55
+    }
+  ],
+  "record_count": 715,
+  "run_id": "20260408T215237Z",
+  "source": "world_bank",
+  "start_year": 1970
+}

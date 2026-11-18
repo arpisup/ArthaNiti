@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - ArthaNiti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body class="auth-page">
+    <div class="auth-container">
+      <div class="brand">
+        <h1>ArthaNiti</h1>
+      </div>
+      
+      <p class="auth-subtitle">Login or register to personalize your economic impact assessment.</p>
+
+      <form id="auth-form" class="auth-form">
+        
+        <div class="auth-tabs">
+          <button type="button" class="tab-btn active" data-tab="login">Login</button>
+          <button type="button" class="tab-btn" data-tab="register">Register</button>
+        </div>
+
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+
+        <div id="register-fields" class="register-fields" hidden>
+          <h3 class="profile-heading">Your Demographic Profile</h3>
+          <p class="section-desc">Used by the Citizen and Policy agents to personalize your simulation.</p>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="profile-age">Age</label>
+              <input type="number" id="profile-age" name="age" min="18" max="100" value="28">
+            </div>
+            <div class="form-group">
+              <label for="profile-family">Family Size</label>
+              <input type="number" id="profile-family" name="family_size" min="1" max="15" value="4">
+            </div>
+            <div class="form-group full-width">
+              <label for="profile-income">Annual Income (₹)</label>
+              <input type="number" id="profile-income" name="annual_income" min="0" step="10000" value="250000">
+            </div>
+            <div class="form-group">
+              <label for="profile-state">State</label>
+              <input type="text" id="profile-state" name="state" value="Tamil Nadu">
+            </div>
+            <div class="form-group">
+              <label for="profile-area">Area</label>
+              <select id="profile-area" name="area">
+                <option value="urban">Urban</option>
+                <option value="rural" selected>Rural</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label for="profile-occupation">Occupation</label>
+              <input type="text" id="profile-occupation" name="occupation" value="farmer">
+            </div>
+            <div class="form-group">
+              <label for="profile-status">Status</label>
+              <select id="profile-status" name="employment_status">
+                <option value="employed">Employed</option>
+                <option value="self_employed" selected>Self-Employed</option>
+                <option value="unemployed">Unemployed</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="profile-sector">Sector</label>
+              <select id="profile-sector" name="sector">
+                <option value="agriculture" selected>Agriculture</option>
+                <option value="manufacturing">Manufacturing</option>
+                <option value="services">Services</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" id="auth-submit-btn" class="primary-btn">
+          <span class="btn-text">Login</span>
+        </button>
+
+        <button type="button" id="skip-login-btn" class="secondary-btn" style="margin-top: 1rem; width: 100%;">
+          Continue without Login
+        </button>
+
+        <p id="auth-error" class="error-msg" hidden></p>
+      </form>
+    </div>
+
+    <script type="module">
+      import { initAuth } from '/app.js';
+      initAuth();
+    </script>
+  </body>
+</html>

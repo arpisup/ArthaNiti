@@ -1,0 +1,12 @@
+{
+  "copied_file": "/home/srao/Downloads/Eco_Sim/data/raw/documents/sample-ppt/20260408T215349Z/source/sample_ppt.pdf",
+  "document_id": "sample-ppt",
+  "extraction_backend": "pdftotext",
+  "full_text_path": "/home/srao/Downloads/Eco_Sim/data/raw/documents/sample-ppt/20260408T215349Z/full_text.txt",
+  "input_file_name": "sample_ppt.pdf",
+  "page_count": 7,
+  "pages_path": "/home/srao/Downloads/Eco_Sim/data/raw/documents/sample-ppt/20260408T215349Z/pages.json",
+  "run_id": "20260408T215349Z",
+  "sha256": "c8657341e344c2df04ed2424e1e1da860e154d6f091ba062299e067887a2a507",
+  "size_bytes": 3252113
+}

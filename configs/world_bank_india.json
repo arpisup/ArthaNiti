@@ -1,0 +1,123 @@
+{
+  "country": "IN",
+  "start_year": 1970,
+  "end_year": 2024,
+  "indicators": [
+    {
+      "code": "NY.GDP.MKTP.KD.ZG",
+      "name": "GDP growth (annual %)"
+    },
+    {
+      "code": "NY.GDP.MKTP.CD",
+      "name": "GDP (current US$)"
+    },
+    {
+      "code": "FP.CPI.TOTL.ZG",
+      "name": "Inflation, consumer prices (annual %)"
+    },
+    {
+      "code": "SL.UEM.TOTL.ZS",
+      "name": "Unemployment, total (% of total labor force)"
+    },
+    {
+      "code": "FR.INR.RINR",
+      "name": "Real interest rate (%)"
+    },
+    {
+      "code": "PA.NUS.FCRF",
+      "name": "Official exchange rate (LCU per US$)"
+    },
+    {
+      "code": "GC.DOD.TOTL.GD.ZS",
+      "name": "Central government debt, total (% of GDP)"
+    },
+    {
+      "code": "GC.TAX.TOTL.GD.ZS",
+      "name": "Tax revenue (% of GDP)"
+    },
+    {
+      "code": "BX.KLT.DINV.WD.GD.ZS",
+      "name": "Foreign direct investment, net inflows (% of GDP)"
+    },
+    {
+      "code": "NE.TRD.GNFS.ZS",
+      "name": "Trade (% of GDP)"
+    },
+    {
+      "code": "NV.AGR.TOTL.ZS",
+      "name": "Agriculture, forestry, and fishing, value added (% of GDP)"
+    },
+    {
+      "code": "NV.IND.TOTL.ZS",
+      "name": "Industry, value added (% of GDP)"
+    },
+    {
+      "code": "NV.SRV.TOTL.ZS",
+      "name": "Services, value added (% of GDP)"
+    },
+    {
+      "code": "SP.POP.TOTL",
+      "name": "Population, total"
+    },
+    {
+      "code": "GC.XPN.TOTL.GD.ZS",
+      "name": "Expense (% of GDP)"
+    },
+    {
+      "code": "NE.GDI.TOTL.ZS",
+      "name": "Gross capital formation (% of GDP)"
+    },
+    {
+      "code": "SL.TLF.TOTL.IN",
+      "name": "Labor force, total"
+    },
+    {
+      "code": "NE.CON.PRVT.ZS",
+      "name": "Households and NPISHs final consumption expenditure (% of GDP)"
+    },
+    {
+      "code": "NE.EXP.GNFS.ZS",
+      "name": "Exports of goods and services (% of GDP)"
+    },
+    {
+      "code": "NE.IMP.GNFS.ZS",
+      "name": "Imports of goods and services (% of GDP)"
+    },
+    {
+      "code": "SP.POP.DPND",
+      "name": "Age dependency ratio (% of working-age population)"
+    },
+    {
+      "code": "SI.POV.DDAY",
+      "name": "Poverty headcount ratio at $2.15 a day (2017 PPP) (% of population)"
+    },
+    {
+      "code": "SE.PRM.ENRR",
+      "name": "School enrollment, primary (% gross)"
+    },
+    {
+      "code": "IT.NET.USER.ZS",
+      "name": "Individuals using the Internet (% of population)"
+    },
+    {
+      "code": "EG.FEC.RNEW.ZS",
+      "name": "Renewable energy consumption (% of total final energy consumption)"
+    },
+    {
+      "code": "NY.GDP.PCAP.KD",
+      "name": "GDP per capita (constant 2015 US$)"
+    },
+    {
+      "code": "SL.TLF.CACT.ZS",
+      "name": "Labor force participation rate, total (% of total population ages 15+) (modeled ILO estimate)"
+    },
+    {
+      "code": "SP.RUR.TOTL.ZS",
+      "name": "Rural population (% of total population)"
+    },
+    {
+      "code": "EN.ATM.CO2E.KT",
+      "name": "CO2 emissions (kt)"
+    }
+  ]
+}

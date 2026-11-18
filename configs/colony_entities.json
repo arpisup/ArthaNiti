@@ -1,0 +1,179 @@
+{
+  "entities": [
+    {
+      "id": "lig_households",
+      "label": "LIG Households",
+      "archetype": "compact low-rise homes",
+      "primary_metrics": [
+        "real_income_index",
+        "inflation_pressure",
+        "employment_stability"
+      ],
+      "notes": "Represented as the densest and most modest residential cluster.",
+      "effect_focus": "Affordability, job stability, and inflation pressure",
+      "macro_focus": [
+        "inflation_pct",
+        "unemployment_pct",
+        "household_pressure_index"
+      ],
+      "scene": {
+        "x_pct": 35,
+        "y_pct": 62,
+        "anchor": "canal-edge block",
+        "label_x_pct": 7,
+        "label_y_pct": 61,
+        "label_align": "left"
+      }
+    },
+    {
+      "id": "mig_households",
+      "label": "MIG Households",
+      "archetype": "mid-density duplex blocks",
+      "primary_metrics": [
+        "real_income_index",
+        "savings_pressure",
+        "housing_cost_index"
+      ],
+      "notes": "Bridge zone between low-income and high-income visual clusters.",
+      "effect_focus": "Savings pressure, housing costs, and wage resilience",
+      "macro_focus": [
+        "inflation_pct",
+        "gdp_growth_pct",
+        "household_pressure_index"
+      ],
+      "scene": {
+        "x_pct": 48,
+        "y_pct": 47,
+        "anchor": "central duplex row",
+        "label_x_pct": 8,
+        "label_y_pct": 42,
+        "label_align": "left"
+      }
+    },
+    {
+      "id": "hig_households",
+      "label": "HIG Households",
+      "archetype": "spacious detached residences",
+      "primary_metrics": [
+        "investment_sentiment",
+        "tax_burden_index",
+        "consumption_outlook"
+      ],
+      "notes": "Use larger lots and cleaner road adjacency.",
+      "effect_focus": "Tax burden, consumption outlook, and investment appetite",
+      "macro_focus": [
+        "investment_sentiment_index",
+        "gdp_growth_pct",
+        "fiscal_stress_index"
+      ],
+      "scene": {
+        "x_pct": 72,
+        "y_pct": 31,
+        "anchor": "upper residential ridge",
+        "label_x_pct": 93,
+        "label_y_pct": 18,
+        "label_align": "right"
+      }
+    },
+    {
+      "id": "farmers",
+      "label": "Farmers",
+      "archetype": "agri edge zone",
+      "primary_metrics": [
+        "input_cost_index",
+        "crop_income_outlook",
+        "credit_access"
+      ],
+      "notes": "Best placed at the colony edge with a visible transition out of the urban core.",
+      "effect_focus": "Input costs, crop income, and rural credit access",
+      "macro_focus": [
+        "inflation_pct",
+        "trade_momentum_index",
+        "exchange_stability_index"
+      ],
+      "scene": {
+        "x_pct": 20,
+        "y_pct": 84,
+        "anchor": "southern edge",
+        "label_x_pct": 8,
+        "label_y_pct": 83,
+        "label_align": "left"
+      }
+    },
+    {
+      "id": "msmes",
+      "label": "MSMEs",
+      "archetype": "workshop and light industrial strip",
+      "primary_metrics": [
+        "operating_cost_index",
+        "credit_access",
+        "demand_outlook"
+      ],
+      "notes": "Visually distinct from residential buildings through signage, loading spaces, and tighter frontage.",
+      "effect_focus": "Operating costs, credit conditions, and demand",
+      "macro_focus": [
+        "investment_sentiment_index",
+        "trade_momentum_index",
+        "gdp_growth_pct"
+      ],
+      "scene": {
+        "x_pct": 28,
+        "y_pct": 28,
+        "anchor": "north-west workshop strip",
+        "label_x_pct": 10,
+        "label_y_pct": 15,
+        "label_align": "left"
+      }
+    },
+    {
+      "id": "public_services",
+      "label": "Public Services",
+      "archetype": "school, clinic, utility office",
+      "primary_metrics": [
+        "service_capacity",
+        "public_spend_signal",
+        "infrastructure_score"
+      ],
+      "notes": "Should feel civic and central, not commercial.",
+      "effect_focus": "Service capacity, spending signals, and infrastructure",
+      "macro_focus": [
+        "fiscal_stress_index",
+        "gdp_growth_pct",
+        "exchange_stability_index"
+      ],
+      "scene": {
+        "x_pct": 78,
+        "y_pct": 60,
+        "anchor": "civic square",
+        "label_x_pct": 94,
+        "label_y_pct": 55,
+        "label_align": "right"
+      }
+    },
+    {
+      "id": "market_activity",
+      "label": "Market Activity",
+      "archetype": "commercial street",
+      "primary_metrics": [
+        "consumer_demand",
+        "price_momentum",
+        "inventory_flow"
+      ],
+      "notes": "Acts as the high-traffic feedback zone for visible economic change.",
+      "effect_focus": "Consumer demand, prices, and inventory flow",
+      "macro_focus": [
+        "inflation_pct",
+        "trade_momentum_index",
+        "gdp_growth_pct"
+      ],
+      "scene": {
+        "x_pct": 55,
+        "y_pct": 80,
+        "anchor": "main commercial spine",
+        "label_x_pct": 56,
+        "label_y_pct": 88,
+        "label_align": "center"
+      }
+    }
+  ]
+}

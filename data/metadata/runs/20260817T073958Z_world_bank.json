@@ -1,0 +1,107 @@
+{
+  "artifacts": {
+    "normalized_csv": "D:\\ECONOMY ML\\Economy ML\\data\\raw\\world_bank\\20260817T073958Z\\records.csv",
+    "run_dir": "D:\\ECONOMY ML\\Economy ML\\data\\raw\\world_bank\\20260817T073958Z"
+  },
+  "country": "IN",
+  "end_year": 2024,
+  "indicator_count": 13,
+  "indicators": [
+    {
+      "cached_from": null,
+      "code": "NY.GDP.MKTP.KD.ZG",
+      "fetch_status": "live",
+      "name": "GDP growth (annual %)",
+      "records": 55
+    },
+    {
+      "cached_from": null,
+      "code": "NY.GDP.MKTP.CD",
+      "fetch_status": "live",
+      "name": "GDP (current US$)",
+      "records": 55
+    },
+    {
+      "cached_from": null,
+      "code": "FP.CPI.TOTL.ZG",
+      "fetch_status": "live",
+      "name": "Inflation, consumer prices (annual %)",
+      "records": 55
+    },
+    {
+      "cached_from": null,
+      "code": "SL.UEM.TOTL.ZS",
+      "fetch_status": "live",
+      "name": "Unemployment, total (% of total labor force)",
+      "records": 55
+    },
+    {
+      "cached_from": null,
+      "code": "FR.INR.RINR",
+      "fetch_status": "live",
+      "name": "Real interest rate (%)",
+      "records": 55
+    },
+    {
+      "cached_from": null,
+      "code": "PA.NUS.FCRF",
+      "fetch_status": "live",
+      "name": "Official exchange rate (LCU per US$)",
+      "records": 55
+    },
+    {
+      "cached_from": null,
+      "code": "GC.DOD.TOTL.GD.ZS",
+      "fetch_status": "live",
+      "name": "Central government debt, total (% of GDP)",
+      "records": 55
+    },
+    {
+      "cached_from": null,
+      "code": "GC.TAX.TOTL.GD.ZS",
+      "fetch_status": "live",
+      "name": "Tax revenue (% of GDP)",
+      "records": 55
+    },
+    {
+      "cached_from": null,
+      "code": "BX.KLT.DINV.WD.GD.ZS",
+      "fetch_status": "live",
+      "name": "Foreign direct investment, net inflows (% of GDP)",
+      "records": 55
+    },
+    {
+      "cached_from": null,
+      "code": "NE.TRD.GNFS.ZS",
+      "fetch_status": "live",
+      "name": "Trade (% of GDP)",
+      "records": 55
+    },
+    {
+      "cached_from": null,
+      "code": "NV.AGR.TOTL.ZS",
+      "fetch_status": "live",
+      "name": "Agriculture, forestry, and fishing, value added (% of GDP)",
+      "records": 55
+    },
+    {
+      "cached_from": null,
+      "code": "NV.IND.TOTL.ZS",
+      "fetch_status": "live",
+      "name": "Industry, value added (% of GDP)",
+      "records": 55
+    },
+    {
+      "cached_from": null,
+      "code": "NV.SRV.TOTL.ZS",
+      "fetch_status": "live",
+      "name": "Services, value added (% of GDP)",
+      "records": 55
+    }
+  ],
+  "record_count": 715,
+  "run_id": "20260817T073958Z",
+  "source": "world_bank",
+  "start_year": 1970,
+  "warnings": []
+}

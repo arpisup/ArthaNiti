@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ecosim"
+version = "0.1.0"
+description = "Phase 1 data collection and intake pipeline for Eco Sim."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "google-genai>=1.0.0",
+  "groq>=0.13.0",
+  "python-dotenv>=1.0.0",
+  "tavily-python>=0.5.0",
+]
+
+[project.optional-dependencies]
+pdf = [
+  "PyMuPDF>=1.24.0",
+  "pypdf>=4.0.0",
+]
+sdg = [
+  "tabula-py>=2.10.0",
+]
+
+[project.scripts]
+ecosim = "ecosim.cli:run"
+
+[tool.setuptools]
+packages = ["ecosim", "ecosim.sources", "ecosim.agents"]

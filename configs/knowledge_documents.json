@@ -1,0 +1,9 @@
+{
+  "allowed_document_ids": [
+    "indian-economy-reference",
+    "indian_economy_reference",
+    "budget_policy_reference",
+    "budget-policy-reference",
+    "project-plan"
+  ]
+}
