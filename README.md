@@ -1,408 +1,230 @@
-# Eco Sim
+# ArthaNiti
 
-Eco Sim is now a runnable local application.
+**An economic policy simulation and decision-support platform for exploring policy trade-offs and their impact on different socioeconomic groups.**
 
-It does five things in one repo:
-- collects and preserves source data
-- builds a processed macro snapshot
-- runs a transparent policy scenario engine
-- retrieves grounded project context from a local knowledge index
-- serves a frontend that maps persona outcomes onto an isometric colony view
+ArthaNiti combines real-world economic data, transparent policy modeling, personalized impact analysis, knowledge retrieval, and multi-agent assessment to help users understand the potential consequences of economic policy decisions.
 
-This build is intentionally conservative about system risk:
-- Python standard library first
-- no database server
-- no heavy ML runtime
-- no Docker requirement
-- no hidden cloud dependency
+---
 
-The simulation model is transparent heuristic logic anchored to real baseline data, not a causal model with policy-identification claims.
+## Overview
 
-## What Exists Now
+ArthaNiti allows users to experiment with economic policy changes and explore their potential effects on macroeconomic indicators, households, and economic sectors across multiple time horizons.
 
-### 1. Data collection layer
+The platform integrates historical economic data, configurable policy levers, persona-based impact calculations, contextual knowledge retrieval, and an interactive visualization interface.
 
-Implemented in:
-- ecosim/sources/world_bank.py
-- ecosim/sources/manual.py
-- ecosim/documents.py
+## Key Features
 
-Current behavior:
-- World Bank indicators are collected automatically and stored as immutable timestamped runs.
-- The collector now uses the V2 Indicators API explicitly against World Development Indicators (`source=2`) with retry logic and browser-like request headers because the endpoint can be intermittently flaky.
-- If a live fetch fails for one indicator but an older raw payload exists locally, the run can reuse that cached indicator and finish with warnings instead of crashing halfway through.
-- Curated or licensed datasets are manually registered with checksums and manifests instead of being scraped badly.
-- PDF documents can be ingested and text-extracted for later retrieval.
+- **Economic Data Pipeline:** Collects World Bank indicators and manages curated datasets with source provenance.
+- **Policy Scenario Simulation:** Models changes in taxation, interest rates, subsidies, welfare, infrastructure, credit support, and other policy levers.
+- **Multi-Horizon Analysis:** Evaluates scenarios across 1-year, 5-year, and 10-year horizons.
+- **Multi-Agent Assessment:** Uses specialized agents for Citizen, Economic, Policy, Risk, and Evidence analysis.
+- **Personalized Impact Analysis:** Evaluates policy outcomes for low-, middle-, and high-income households, farmers, MSMEs, public services, and market activity.
+- **Knowledge Retrieval:** Retrieves relevant information from indexed documents and provides source citations.
+- **Explainable Modeling:** Uses configurable policy-to-metric relationships to make simulation assumptions transparent.
+- **Interactive Visualization:** Presents policy outcomes through an interactive frontend featuring an isometric economic colony visualization.
 
-Why:
-- stable public APIs should be automated
-- brittle scraping should not be the foundation of a policy product
-- provenance matters because later model behavior depends on source trust
-- partial progress should not be thrown away because one external API request times out
+## System Architecture
 
-### 2. Processed data layer
+### 1. Data Collection
+- Automated collection of economic indicators from the World Bank.
+- Support for curated and manually registered datasets.
+- PDF document ingestion and text extraction.
+- Timestamped raw data storage and source manifests.
 
-Implemented in:
-- ecosim/processing.py
+### 2. Data Processing
+- Historical indicator normalization and transformation.
+- Calculation of latest values, averages, trends, and volatility.
+- Generation of macroeconomic baseline composites.
 
-Current behavior:
-- loads the latest World Bank raw run
-- pivots the historical series
-- computes latest values, trailing averages, slopes, and volatility
-- derives macro baseline composites like fiscal stress, investment sentiment, household pressure, exchange stability, and trade momentum
-- writes a processed snapshot and overview into `data/processed/latest/`
+### 3. Policy Simulation Engine
+- Configurable policy levers and policy-to-metric weights.
+- Horizon-sensitive impact calculations.
+- Persona-specific impact formulas.
+- Scenario comparison against baseline economic conditions.
 
-Important modeling decision:
-- the processed layer separates raw indicators from product-facing macro composites
-- this gives the UI and model stable fields even when raw source structure evolves
+### 4. Knowledge and Evidence Layer
+- Local document indexing and chunking.
+- Lightweight lexical retrieval.
+- Citation-backed context and source excerpts.
+- Optional live evidence retrieval through Tavily.
 
-### 3. Scenario engine
+### 5. Application and Visualization Layer
+- Python-based backend using WSGI.
+- Static frontend with interactive policy controls.
+- Macroeconomic metric visualization.
+- Persona-specific impact windows and contextual explanations.
 
-Implemented in:
-- ecosim/model.py
-- configs/policy_model.json
-- configs/colony_entities.json
+## Policy Variables
 
-The scenario engine uses:
-- baseline macro values from the processed snapshot
-- a configurable policy lever catalog
-- explicit policy-to-metric weights
-- horizon-sensitive lever multipliers for `1`, `5`, and `10` year views
-- persona formulas for `LIG`, `MIG`, `HIG`, `farmers`, `MSMEs`, `public services`, and `market activity`
+The simulation currently supports policy levers such as:
 
-Policy levers currently implemented:
-- income tax rate
+- Income tax rate
 - GST rate
-- policy rate
-- capital spending
-- welfare spending
-- subsidy support
-- credit support
-- export push
-- infrastructure push
-- debt discipline
+- Policy interest rate
+- Capital expenditure
+- Welfare spending
+- Subsidies
+- Credit support
+- Export promotion
+- Infrastructure investment
+- Debt discipline
 
-Macro metrics currently exposed:
+## Economic Indicators
+
+Scenario outcomes are evaluated using indicators including:
+
 - GDP growth
-- inflation
-- unemployment
-- fiscal stress
-- investment sentiment
-- exchange stability
-- trade momentum
-- household pressure
+- Inflation
+- Unemployment
+- Fiscal stress
+- Investment sentiment
+- Exchange stability
+- Trade momentum
+- Household pressure
 
-Important honesty point:
-- the lever weights are explicit heuristics
-- they are readable and editable
-- they are not learned from enough policy-outcome data to justify causal confidence
+## Technology Stack
 
-That is still the right engineering choice at this stage because:
-- the repo does not yet contain a robust cross-source policy history dataset
-- pretending otherwise would just hide guesswork behind fake sophistication
-
-### 4. Local retrieval / explanation layer
-
-Implemented in:
-- ecosim/knowledge.py
-- ecosim/service.py
-- configs/knowledge_documents.json
-
-Current behavior:
-- indexes local Markdown, DOCX, processed overview, and allowed extracted documents
-- chunks them into search units
-- builds a lightweight lexical relevance index
-- returns citations with file paths and excerpts
-- uses those citations to support deterministic scenario summaries
-
-What it is:
-- retrieval-backed explanation
-
-What it is not:
-- a full LLM-powered RAG stack
-
-Why:
-- local, dependency-light, and testable is better than bolting on a brittle model dependency too early
-
-### 5. Backend application
-
-Implemented in:
-- ecosim/server.py
-- ecosim/service.py
-- ecosim/cli.py
-
-The backend is a local WSGI app served with the Python standard library. That was intentional.
-
-Why this backend choice is good here:
-- no framework install required
-- small surface area
-- no background services
-- easy to test directly
-- low system risk
-
-API routes:
-- `GET /api/health`
-- `GET /api/config`
-- `GET /api/baseline`
-- `POST /api/simulate`
-- `POST /api/explain`
-- `GET /api/knowledge/search?q=...`
-
-### 6. Frontend application
-
-Implemented in:
-- web/index.html
-- web/styles.css
-- web/app.js
-- Frontend_Reference.jpg
-
-Frontend decisions:
-- no framework
-- no build step
-- no package manager dependency
-- the same local server serves API and static assets
-
-UI behavior:
-- the reference image is the colony surface
-- personas are positioned as anchored scene markers with visible callout labels
-- each callout is connected back to its building cluster with SVG guide lines
-- desktop labels are pushed toward the scene edges so the artwork stays readable instead of being covered by large floating boxes
-- center-weighted entities can fall into a dedicated rail below the image instead of forcing another card onto the roofs
-- policy levers are controlled from a left-side panel
-- macro results update in a metric strip
-- clicking a label or navigator card opens a modal impact window for that persona
-- each impact window filters to persona metrics plus only the macro metrics relevant to that persona
-- the right-side column is now a navigator, not the main detail surface
-- technical summary pulls a grounded explanation with citations
-
-Design direction adopted:
-- warm civic palette instead of generic white-purple dashboard styling
-- serif headings plus non-default sans body type
-- glass/paper panels over a textured background
-- colony view as the hero, not a dashboard grid
-- map labels are intentionally high-contrast and readable without hover
-- mobile falls back to a label rail below the scene instead of hiding interaction behind tiny overlays
+| Component | Technology |
+|---|---|
+| Backend | Python |
+| Data Sources | World Bank API, curated datasets |
+| Data Processing | Python data processing pipeline |
+| Storage | Filesystem, SQLite where applicable |
+| Knowledge Retrieval | Local indexing and lexical search |
+| AI Assessment | Multi-agent orchestration, LLM integrations |
+| Live Evidence | Tavily (optional) |
+| Frontend | HTML, CSS, JavaScript |
+| Backend Server | WSGI, Python standard library |
 
 ## Project Structure
 
-Key files:
-- ecosim/cli.py: entry point for data, build, and server commands
-- ecosim/storage.py: filesystem layout and artifact helpers
-- ecosim/processing.py: processed snapshot builder
-- ecosim/model.py: scenario engine
-- ecosim/knowledge.py: local retrieval index
-- ecosim/service.py: application service layer
-- ecosim/server.py: WSGI app and local server
-- configs/world_bank_india.json: automated World Bank source config
-- configs/source_registry.json: managed manual source registry
-- configs/policy_model.json: policy lever and macro metric catalog
-- configs/colony_entities.json: persona catalog and scene positions
-- configs/knowledge_documents.json: allowed extracted docs for knowledge indexing
-
-## Commands
-
-### Bootstrap directories
-
-```bash
-python3 -m ecosim bootstrap
-```
-
-### Collect World Bank data
-
-```bash
-python3 -m ecosim collect-world-bank --config configs/world_bank_india.json
-```
-
-### Register a manual dataset
-
-```bash
-python3 -m ecosim register-manual \
-  --registry configs/source_registry.json \
-  --source-id sdg_india_index \
-  --file /absolute/path/to/file.csv
-```
-
-### Extract a PDF document
-
-```bash
-python3 -m ecosim extract-document \
-  --document-id indian-economy-reference \
-  --file /absolute/path/to/book.pdf
-```
-
-### Build the processed snapshot
-
-```bash
-python3 -m ecosim prepare-data
-```
-
-### Build the retrieval index
-
-```bash
-python3 -m ecosim build-knowledge
-```
-
-### Extract SDG report PDFs into CSV
-
-This command is for the specific SDG India report layouts currently supported in this repo:
-- `SDG-India-Index-2021.pdf` -> report cycle `2019-20`
-- `SDG_India_Index_2020.pdf` -> report cycle `2020-21`
-- `SDA_INDIA_INDEX_2023.pdf` -> report cycle `2023-24`
-
-Run it on the whole `sdg/` directory:
-
-```bash
-python3 -m ecosim extract-sdg --input-dir sdg
-```
-
-Outputs:
-- `data/processed/sdg/latest/2019_20_goal_scores.csv`
-- `data/processed/sdg/latest/2020_21_goal_scores.csv`
-- `data/processed/sdg/latest/2023_24_goal_scores.csv`
-- `data/processed/sdg/latest/combined_goal_scores_wide.csv`
-- `data/processed/sdg/latest/combined_goal_scores_long.csv`
-
-What this does:
-- rows are cleaned and normalized
-- split UT names are repaired
-- all report tables are mapped to a common `sdg_1 ... sdg_16` schema
-- `row_type` identifies `state`, `union_territory`, `india`, or `target`
-
-This workflow needs `tabula-py` plus Java. In this version, that is treated as an optional SDG extraction dependency.
-
-### Run the app
-
-```bash
-python3 -m ecosim serve
-```
-
-### Enable live evidence with Tavily
-
-Set `TAVILY_API_KEY` in the local `.env` file. Each multi-agent assessment then lets the Evidence Agent retrieve current web and news sources with Tavily, alongside the local knowledge index. Live search is optional: when the key or network is unavailable, assessments continue with local citations.
-
 ```text
-TAVILY_API_KEY=your_tavily_key
+ArthaNiti/
+├── ecosim/
+│   ├── cli.py
+│   ├── storage.py
+│   ├── processing.py
+│   ├── model.py
+│   ├── knowledge.py
+│   ├── service.py
+│   ├── server.py
+│   ├── documents.py
+│   └── sources/
+├── configs/
+│   ├── world_bank_india.json
+│   ├── source_registry.json
+│   ├── policy_model.json
+│   ├── colony_entities.json
+│   └── knowledge_documents.json
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   ├── knowledge/
+│   └── metadata/
+├── web/
+│   ├── index.html
+│   ├── styles.css
+│   └── app.js
+└── tests/
 ```
 
-Open:
+## Getting Started
+
+### Prerequisites
+
+- Python 3.10+
+- Git
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/ArthaNiti.git
+cd ArthaNiti
+```
+
+### 2. Initialize the project
+
+```bash
+python -m ecosim bootstrap
+```
+
+### 3. Collect economic data
+
+```bash
+python -m ecosim collect-world-bank --config configs/world_bank_india.json
+```
+
+### 4. Prepare the processed data
+
+```bash
+python -m ecosim prepare-data
+```
+
+### 5. Build the knowledge index
+
+```bash
+python -m ecosim build-knowledge
+```
+
+### 6. Start the application
+
+```bash
+python -m ecosim serve
+```
+
+Open your browser and navigate to:
 
 ```text
 http://127.0.0.1:8000
 ```
 
-## Data Layout
+## Optional: Live Evidence Retrieval
 
-```text
-data/
-  raw/
-    world_bank/
-    manual/
-    documents/
-  processed/
-    latest/
-    <timestamp>/
-  knowledge/
-    latest/
-    <timestamp>/
-  metadata/
-    runs/
+To enable live web evidence retrieval for multi-agent assessments, configure your Tavily API key in a local `.env` file:
+
+```env
+TAVILY_API_KEY=your_tavily_api_key
 ```
 
-Principles behind this layout:
-- raw runs remain immutable
-- processed and knowledge artifacts are rebuilt snapshots
-- `latest/` is a runtime convenience alias
-- manifests exist so you can inspect what produced what
+Live retrieval is optional. The platform can continue using its local knowledge sources when live search is unavailable.
 
-## Modeling Concepts Adopted
+## API Endpoints
 
-These are the core concepts currently used in the product.
-
-### Transparent simulation over opaque pseudo-ML
-
-Adopted:
-- explicit levers
-- explicit weights
-- explicit horizon adjustments
-- explicit clamping rules
-- explicit persona formulas
-
-Rejected for now:
-- throwing an LSTM at annual macro data
-- claiming predictive validity without enough policy history
-- hiding weak assumptions behind a black-box API
-
-### Local retrieval over premature LLM dependency
-
-Adopted:
-- chunked local documents
-- lexical ranking
-- deterministic summaries
-- citations with source paths
-
-Rejected for now:
-- ungrounded free-text generation
-- external model calls for core explanation behavior
-
-### Local-first runtime over distributed complexity
-
-Adopted:
-- one local Python process
-- static frontend
-- filesystem artifacts
-- standard-library WSGI server
-
-Rejected for now:
-- container orchestration
-- database clusters
-- queueing infrastructure
-- multiple microservices
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/health` | Health check |
+| GET | `/api/config` | Retrieve application configuration |
+| GET | `/api/baseline` | Retrieve baseline economic indicators |
+| POST | `/api/simulate` | Run a policy simulation |
+| POST | `/api/explain` | Generate a grounded scenario explanation |
+| GET | `/api/knowledge/search?q=...` | Search the local knowledge index |
 
 ## Testing
 
-Tests cover:
-- manual intake behavior
-- World Bank normalization
-- processed snapshot generation
-- scenario engine behavior
-- knowledge indexing and search
-- server route behavior
-
-Run all tests:
+Run the test suite:
 
 ```bash
-python3 -m unittest discover -s tests
+python -m unittest discover -s tests
 ```
 
-## Current Limits
+Tests cover data intake, World Bank normalization, data processing, scenario simulation, knowledge retrieval, and server routes.
 
-- The model is not yet calibrated against a defensible policy-response training dataset.
-- Some baseline indicators are stale because the available World Bank series are stale.
-- Manual sources are registered but not yet harmonized into a richer multi-source policy warehouse.
-- The explanation system is grounded, but it is template-based rather than LLM-generated.
-- The frontend is elegant and functional, but it is still a no-build static app rather than a large component system.
+## Modeling Approach
 
-## What is done:
+ArthaNiti uses a transparent, configurable heuristic-based simulation model anchored to real economic baseline data.
 
-- the whole stack runs locally
-- the data path is auditable
-- the model assumptions are visible
-- the UI is not generic
-- the tests are real
+Policy levers are connected to economic metrics through explicit weights, horizon adjustments, and persona-specific formulas. These relationships are editable and designed to make assumptions inspectable.
 
-## Future Works:
+**The simulation is exploratory rather than predictive.** Its outputs represent modeled scenarios and potential trade-offs, not definitive causal estimates of real-world policy outcomes.
 
-1. Add official RBI / MOSPI / Union Budget structured sources and harmonize them in the processed layer.
-2. Replace heuristic policy weights with a documented econometric or constrained regression workflow.
-3. Add model versioning and comparative backtesting reports.
-4. Introduce a richer document corpus for the explanation layer.
-5. Move the frontend from hotspot overlay to a richer scene engine only if the map complexity actually justifies it.
+## Future Improvements
 
-## Verification Status
+- Integrate additional official economic data sources such as RBI and MOSPI.
+- Develop a more rigorous econometric modeling pipeline.
+- Introduce model versioning and backtesting.
+- Expand the knowledge corpus.
+- Improve comparative policy analysis.
 
-- data collection already present in the repo
-- processed snapshot build
-- knowledge index build
-- scenario simulation calls
-- explanation generation
-- automated unit tests
+---
+
+*ArthaNiti — Exploring economic policies, trade-offs, and their impact on people.*
